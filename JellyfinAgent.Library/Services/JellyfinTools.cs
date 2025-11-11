@@ -3,27 +3,26 @@ using System.ComponentModel;
 /// <summary>
 /// AI Agent tools for interacting with Jellyfin media server
 /// </summary>
-internal static class JellyfinTools
+public class JellyfinTools
 {
-    private static JellyfinClient? _client;
+    private readonly IJellyfinClient _client;
 
-    internal static void Initialize(JellyfinClient client)
+    public JellyfinTools(IJellyfinClient client)
     {
-        _client = client;
+        _client = client ?? throw new ArgumentNullException(nameof(client));
     }
 
-    private static JellyfinClient GetClient()
-        => _client ?? throw new InvalidOperationException("JellyfinClient not initialized. Call Initialize() first.");
+    private IJellyfinClient GetClient() => _client;
 
     [Description("Get a complete list of all movies available on the Jellyfin server.")]
-    internal static async Task<List<string>> GetAllMoviesAsync()
+    public async Task<List<string>> GetAllMoviesAsync()
     {
         var client = GetClient();
         return await client.GetAllMoviesAsync().Select(m => m.Name).ToListAsync();
     }
 
     [Description("Search for movies, TV shows, or other media by name. Optionally filter by media type (Movie, Series, Episode) and genre.")]
-    internal static async Task<string> SearchLibraryAsync(
+    public async Task<string> SearchLibraryAsync(
         [Description("The search query to find media items")] string query,
         [Description("Optional media type filter: Movie, Series, Episode, etc.")] string? mediaType = null,
         [Description("Optional genre filter")] string? genre = null)
@@ -55,7 +54,7 @@ internal static class JellyfinTools
     }
 
     [Description("Get all available genres in the Jellyfin library. Optionally filter by media type (Movie, Series, etc.).")]
-    internal static async Task<List<string>> GetAllGenresAsync(
+    public async Task<List<string>> GetAllGenresAsync(
         [Description("Optional media type to filter genres: Movie, Series, etc.")] string? mediaType = null)
     {
         var client = GetClient();
@@ -64,7 +63,7 @@ internal static class JellyfinTools
     }
 
     [Description("Get movies filtered by a specific genre, sorted by rating.")]
-    internal static async Task<string> GetMoviesByGenreAsync(
+    public async Task<string> GetMoviesByGenreAsync(
         [Description("The genre to filter by (e.g., Horror, Comedy, Action)")] string genre,
         [Description("Maximum number of results to return")] int limit = 20)
     {
@@ -94,7 +93,7 @@ internal static class JellyfinTools
     }
 
     [Description("Get recently added movies or TV shows.")]
-    internal static async Task<string> GetRecentlyAddedAsync(
+    public async Task<string> GetRecentlyAddedAsync(
         [Description("Optional media type filter: Movie, Series, etc.")] string? mediaType = null,
         [Description("Maximum number of results")] int limit = 10)
     {
@@ -121,7 +120,7 @@ internal static class JellyfinTools
     }
 
     [Description("Get detailed information about a specific movie or show by searching for it.")]
-    internal static async Task<string> GetItemDetailsAsync(
+    public async Task<string> GetItemDetailsAsync(
         [Description("Name of the movie or show to get details for")] string itemName)
     {
         var client = GetClient();
@@ -165,7 +164,7 @@ internal static class JellyfinTools
     }
 
     [Description("Get the user's favorite movies and shows.")]
-    internal static async Task<string> GetFavoritesAsync(
+    public async Task<string> GetFavoritesAsync(
         [Description("Optional media type filter: Movie, Series, etc.")] string? mediaType = null)
     {
         var client = GetClient();
@@ -191,7 +190,7 @@ internal static class JellyfinTools
     }
 
     [Description("Get movies or shows from a specific year.")]
-    internal static async Task<string> GetItemsByYearAsync(
+    public async Task<string> GetItemsByYearAsync(
         [Description("The production year")] int year,
         [Description("Optional media type filter: Movie, Series, etc.")] string? mediaType = null)
     {

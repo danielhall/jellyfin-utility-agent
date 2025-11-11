@@ -1,6 +1,7 @@
 using RestSharp;
+using JellyfinAgent.Library.Models;
 
-public class JellyfinClient
+public class JellyfinClient : IJellyfinClient
 {
     private readonly RestClient _client;
     private string _token = "";
@@ -210,24 +211,4 @@ public class JellyfinClient
         var response = await _client.ExecuteAsync<T>(req);
         return response.Data ?? throw new Exception($"Request to {req.Resource} returned null data");
     }
-
-    public record AuthenticationResult(string AccessToken, UserDto User);
-    public record UserDto(string Id, string Name);
-    
-    public record BaseItemDto(
-        string Id, 
-        string Name, 
-        string? Overview = null,
-        List<string>? Genres = null,
-        float? CommunityRating = null,
-        string? OfficialRating = null,
-        int? ProductionYear = null,
-        long? RunTimeTicks = null,
-        string? Type = null
-    );
-    
-    public record GenreDto(string Name, string Id);
-    
-    public record BaseItemDtoQueryResult(List<BaseItemDto> Items, int? TotalRecordCount);
-    public record GenreDtoQueryResult(List<GenreDto> Items, int? TotalRecordCount);
 }
