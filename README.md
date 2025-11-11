@@ -1,12 +1,12 @@
 # Jellyfin Utility Agent
 
-A fun personal project that creates an AI-powered agent to interact with your Jellyfin media server. This agent can help you discover and get movie suggestions based on your personal media library!
+A fun personal project that creates an AI-powered agent to interact with your Jellyfin media server. This agent provides an interactive conversational interface to help you discover and get movie suggestions based on your personal media library.
 
-## 🎬 What is This?
+## What is This?
 
-This is a .NET console application that uses AI agents to provide intelligent assistance for your Jellyfin media server. The agent can analyze your movie collection and provide personalized recommendations, making it easier to decide what to watch.
+This is a .NET console application that uses AI agents to provide intelligent assistance for your Jellyfin media server. The agent can analyze your movie collection and provide personalized recommendations, making it easier to decide what to watch. You can have continuous conversations with the agent, and it will remember the context of your previous messages.
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - **.NET 10.0** - Modern C# framework
 - **Microsoft.Agents.AI** - AI agent framework for building conversational agents
@@ -15,7 +15,7 @@ This is a .NET console application that uses AI agents to provide intelligent as
 - **Jellyfin API** - Integration with Jellyfin media server
 - **RestSharp** - HTTP client for API calls
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -72,14 +72,20 @@ This is a .NET console application that uses AI agents to provide intelligent as
    dotnet run
    ```
 
-## 📋 Features
+## Features
 
-- 🎥 **Movie Discovery** - Get a list of all movies in your Jellyfin library
-- 🤖 **AI-Powered Suggestions** - Ask the agent to recommend movies based on your mood or preferences
-- 💬 **Natural Language Interaction** - Talk to the agent in plain English
-- 🎃 **Context-Aware** - The agent understands context like "Find a spooky movie for me to watch tonight"
+- **Continuous Conversation** - Interactive chat interface that maintains conversation context
+- **Search Library** - Search for movies, TV shows, and other media by name, genre, or media type
+- **Genre Discovery** - Browse all available genres and find content by specific genres
+- **Recently Added** - See what's new in your library
+- **Detailed Information** - Get comprehensive details about any movie or show
+- **Favorites** - View your favorite content
+- **Year Search** - Find content from specific years
+- **AI-Powered Suggestions** - Get intelligent recommendations based on your preferences
+- **Natural Language Interaction** - Talk to the agent in plain English
+- **Context-Aware** - The agent remembers your conversation and can handle follow-up questions
 
-## 🔧 How It Works
+## How It Works
 
 The application uses the Microsoft Agents AI framework to create an intelligent agent that:
 1. Connects to your Jellyfin server and retrieves your movie library
@@ -87,46 +93,65 @@ The application uses the Microsoft Agents AI framework to create an intelligent 
 3. Analyzes your library and provides personalized recommendations
 4. Maintains conversation context for natural multi-turn interactions
 
-## 🎯 Example Usage
+## Example Usage
 
-Once running, you can ask the agent questions like:
-- "Find a spooky movie for me to watch tonight"
-- "What comedies do I have?"
-- "Suggest an action movie"
-- "What's a good film for a movie night?"
+Once running, the agent will greet you and wait for your input. You can have a continuous conversation by asking questions like:
 
-## 🔐 Security Notes
+**You:** "What genres do I have?"
+**Assistant:** Lists all available genres in your library
+
+**You:** "Show me some horror movies"
+**Assistant:** Displays horror movies with ratings and descriptions
+
+**You:** "What about the second one?"
+**Assistant:** Provides detailed information about that specific movie
+
+**You:** "What was added recently?"
+**Assistant:** Shows recently added content
+
+**You:** "Find something from the 1980s"
+**Assistant:** Lists movies and shows from that decade
+
+Type `exit` or `quit` to end the conversation.
+
+## Security Notes
 
 - Never commit your `.env` file to version control
 - Keep your GitHub token and Jellyfin credentials secure
 - The `.env` file is already included in `.gitignore`
 
-## 📝 Project Structure
+## Project Structure
 
 ```
 jellyfin-utility-agent/
-├── Program.cs                 # Main application entry point
+├── Program.cs                      # Main application entry point with conversation loop
 ├── Services/
 │   └── Jellyfin/
-│       └── JellyfinClient.cs  # Jellyfin API integration
-├── .env.example               # Environment configuration template
-└── JellyfinUtilityAgent.csproj # Project configuration
+│       ├── JellyfinClient.cs       # Jellyfin API integration
+│       └── JellyfinTools.cs        # AI agent tool functions
+├── .env.example                    # Environment configuration template
+└── JellyfinUtilityAgent.csproj     # Project configuration
 ```
 
-## 🤝 Contributing
+## Available Tools
+
+The agent has access to the following tools to help you:
+
+- **GetAllMoviesAsync** - Retrieve complete list of all movies
+- **SearchLibraryAsync** - Search by name with optional media type and genre filters
+- **GetAllGenresAsync** - Get all available genres, optionally filtered by media type
+- **GetMoviesByGenreAsync** - Find movies in a specific genre, sorted by rating
+- **GetRecentlyAddedAsync** - See what's been recently added to the library
+- **GetItemDetailsAsync** - Get detailed information about a specific item
+- **GetFavoritesAsync** - View favorite content
+- **GetItemsByYearAsync** - Find content from a specific production year
+
+## Contributing
 
 This is a personal project, but feel free to fork it and adapt it for your own needs!
 
-## 📄 License
-
-This is a personal project - use it however you'd like!
-
-## 🎉 Acknowledgments
+## Acknowledgments
 
 - [Jellyfin](https://jellyfin.org/) - The amazing open-source media server
 - [Microsoft Agents AI](https://github.com/microsoft/agents) - AI agent framework
 - [GitHub Models](https://github.com/marketplace/models) - Easy access to AI models
-
----
-
-**Happy movie watching! 🍿**
